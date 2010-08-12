@@ -52,6 +52,19 @@ module Webrat
         when "hidden"   then HiddenField
         when "radio"    then RadioField
         when "password" then PasswordField
+        when 'search'   then SearchField
+        when 'email'    then EmailField
+        when 'url'      then URLField
+        when 'tel'      then TelephoneField
+        when 'color'    then ColorField
+        when 'number'   then NumberField
+        when 'range'    then RangeField
+        when 'date'     then DateField
+        when 'month'    then MonthField
+        when 'week'     then WeekField
+        when 'time'     then TimeField
+        when 'datetime' then DateTimeField
+        when 'datetime-local' then DateTimeLocalField
         when "file"     then FileField
         when "reset"    then ResetField
         when "submit"   then ButtonField
@@ -367,6 +380,84 @@ module Webrat
       [".//input[@type = 'text']", ".//input[not(@type)]"]
     end
   end
+  
+  class SearchField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'search']"]
+    end
+  end
+
+  class EmailField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'email']"]
+    end
+  end
+
+  class URLField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'url']"]
+    end
+  end
+
+  class TelephoneField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'tel']"]
+    end
+  end
+
+  class ColorField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'color']"]
+    end
+  end
+
+  class NumberField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'number']"]
+    end
+  end
+
+  class RangeField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'range']"]
+    end
+  end
+
+  class DateField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'date']"]
+    end
+  end
+
+  class MonthField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'month']"]
+    end
+  end
+
+  class WeekField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'week']"]
+    end
+  end
+
+  class TimeField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'time']"]
+    end
+  end
+
+  class DateTimeField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'datetime']"]
+    end
+  end
+
+  class DateTimeLocalField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'datetime-local']"]
+    end
+  end
 
   class ResetField < Field #:nodoc:
     def self.xpath_search
@@ -434,5 +525,11 @@ module Webrat
     end
 
   end
+
+  TEXTUAL_FIELDS = TextField, TextareaField, PasswordField,
+                   SearchField,  EmailField, URLField, TelephoneField,
+                   ColorField, NumberField, RangeField,
+                   DateField, MonthField, WeekField, TimeField,
+                   DateTimeField, DateTimeLocalField
 
 end
