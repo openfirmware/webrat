@@ -31,18 +31,24 @@ describe "fill_in" do
     click_button
   end
 
-  it "should work with password fields" do
-    with_html <<-HTML
-      <html>
-      <form method="post" action="/login">
-        <input id="user_text" name="user[text]" type="password" />
-        <input type="submit" />
-      </form>
-      </html>
-    HTML
-    webrat_session.should_receive(:post).with("/login", "user" => {"text" => "pass"})
-    fill_in "user_text", :with => "pass"
-    click_button
+  [
+    'password', 'search', 'email', 'url', 'tel', 'color',
+    'number', 'range', 'date', 'month', 'week', 'time',
+    'datetime', 'datetime-local'
+  ].each do |type|
+    it "should work with #{type} fields" do
+      with_html <<-HTML
+        <html>
+        <form method="post" action="/login">
+          <input id="user_text" name="user[text]" type="#{type}" />
+          <input type="submit" />
+        </form>
+        </html>
+      HTML
+      webrat_session.should_receive(:post).with("/login", "user" => {"text" => "some value"})
+      fill_in "user_text", :with => "some value"
+      click_button
+    end
   end
 
   it "should fail if input not found" do
